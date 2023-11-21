@@ -3,6 +3,9 @@ import { RxDoubleArrowRight } from "react-icons/rx";
 
 import Card from "../components/Common/Card";
 import Search from "../components/Navbar/Search";
+import { AuthContext } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
 import { fetchAllAPI, searchMoviesAPI } from "../utils/API";
 
@@ -10,6 +13,13 @@ export default function Series() {
   const [seriesData, setSeriesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const fetchData = async (searchQuery) => {
