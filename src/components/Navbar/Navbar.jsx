@@ -43,7 +43,7 @@ export default function Navbar() {
       >
         <span className="leading-none text-4xl text-yellow-400">.</span>Movie
       </Link>
-      <ul className="hidden lg:flex md:gap-10 gap-5 h-full items-center lg:mr-auto">
+      <ul className="hidden lg:flex md:gap-10 gap-5 h-full items-center lg:mr-auto z-30">
         {navlinks.map((link, index) =>
           Array.isArray(link.path) ? (
             <li
@@ -61,7 +61,7 @@ export default function Navbar() {
               />
               <div
                 ref={dropdownRef}
-                className={`absolute min-w-[200px] -translate-x-[30px] px-2 py-4 top-0 translate-y-10 bg-[#010b13] border-2 border-gray-200 ${
+                className={`absolute min-w-[200px] -translate-x-[30px] px-2 py-4 top-0 translate-y-10 bg-[#010b13] rounded-xl shadow-sm ${
                   show ? "block" : "hidden"
                 }`}
               >
