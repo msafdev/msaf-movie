@@ -36,11 +36,14 @@ export default function Navbar() {
   }
 
   return (
-    <div className="w-full pt-6 md:pb-6 pb-4 md:px-8 px-4 flex items-center justify-between border-b-[1px] border-b-gray-300">
-      <Link to="/" className="font-bold text-4xl lg:mr-[64px]">
-        .Movie
+    <div className="w-full flex items-center justify-between border-b-[1px] h-fit border-b-gray-300">
+      <Link
+        to="/"
+        className="font-bold text-4xl lg:mr-[64px] pt-6 md:pb-6 pb-4 md:px-8 px-4 lg:border-r-[1px] border-r-gray-300"
+      >
+        <span className="leading-none text-4xl text-yellow-400">.</span>Movie
       </Link>
-      <ul className="hidden lg:flex md:gap-10 gap-5">
+      <ul className="hidden lg:flex md:gap-10 gap-5 h-full items-center lg:mr-auto">
         {navlinks.map((link, index) =>
           Array.isArray(link.path) ? (
             <li
@@ -83,7 +86,7 @@ export default function Navbar() {
           )
         )}
       </ul>
-      <div className="flex items-center lg:ml-auto gap-4">
+      <div className="flex items-center gap-4 h-auto border-l-[1px] border-l-gray-300 pt-6 md:pb-6 pb-4 md:px-8 px-4">
         <Menu />
         <Link to="/login" className="hidden lg:block group">
           <button className="text-[#010b13] py-2 rounded-full font-semibold">

@@ -1,64 +1,66 @@
 import { useState, useEffect } from "react";
+import { RxDoubleArrowRight } from "react-icons/rx";
+
 import Card from "../components/Common/Card";
 import Search from "../components/Navbar/Search";
 
+import { fetchAllAPI, searchMoviesAPI } from "../utils/API";
+
 export default function Movies() {
-  const [movieData, setMovieData] = useState({});
+  const [movieData, setMovieData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const fetchData = async (searchQuery) => {
+    try {
+      let data;
+      if (searchQuery) {
+        data = await fetchAllAPI(
+          "/search/movie?query=" +
+            searchQuery +
+            "&include_adult=false&language=en-US&page=1"
+        );
+      } else {
+        data = await fetchAllAPI("/movie/popular?language=en-US&page=" + page);
+      }
+
+      setMovieData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const tmdbToken = import.meta.env.VITE_APP_TMDB_TOKEN;
-
-        const response = await fetch(
-          "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=" +
-            page +
-            "&sort_by=popularity.desc",
-          {
-            method: "GET",
-            headers: {
-              accept: "application/json",
-              Authorization: `Bearer ${tmdbToken}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        if (data) {
-          setLoading(false);
-        }
-        const trendingMovie = data.results;
-        setMovieData(trendingMovie.slice(0, 18));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     fetchData();
   }, [page]);
+
+  const handleSearch = (query) => {
+    setPage(1);
+    setLoading(true);
+    fetchData(query);
+  };
 
   return (
     <>
       <div className="px-4 md:px-8 my-4">
-        <Search />
+        <Search onSearch={handleSearch} />
       </div>
       <div className="w-full h-full flex-1 flex flex-col md:px-8 px-4 pb-10">
-        <h1 className="text-2xl font-semibold">All movies</h1>
+        <h1 className="text-2xl font-semibold">
+          All movies <RxDoubleArrowRight className="inline ml-3 w-6 h-6" />
+        </h1>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 my-4">
-          {loading ? (
+          {movieData.length === 0 || loading ? (
             <>
-              <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
-              <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
-              <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
-              <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
-              <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
-              <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
+              {[...Array(18)].map((_, index) => (
+                <div
+                  key={index}
+                  className="flex justify-center items-center w-full h-full aspect-[3/4] bg-gray-300 rounded-[32px]"
+                />
+              ))}
             </>
           ) : (
             movieData.map((movie) => (
@@ -78,6 +80,7 @@ export default function Movies() {
               onClick={() => {
                 if (page > 1) {
                   setPage(page - 1);
+                  setLoading(true);
                 }
               }}
             >
@@ -88,6 +91,7 @@ export default function Movies() {
             className="text-md font-semibold items-center bg-gray-200 px-4 py-3 rounded-full hover:shadow transition-all duration-300 ease-in-out"
             onClick={() => {
               setPage(page + 1);
+              setLoading(true);
             }}
           >
             Next page
