@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Montserrat", sans-serif;
+
+  line-height: 1.4;
+  font-size: 16px;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  background-color: #fdfeff;
+  color: #010b13;
+  min-width: 320px;
+
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0; /* Set a width to reserve space, adjust as needed */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Make the scrollbar track transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent; /* Make the scrollbar thumb (handle) transparent */
+}
+
+/* For Firefox and some other browsers */
+/* Note: This property is not supported in all browsers */
+body {
+  scrollbar-width: none; /* Hide the scrollbar */
+}
