@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { CiLogout } from "react-icons/ci";
 import { AuthContext } from "../../context/Auth";
+
 // Components
 import Menu from "./Menu";
-import Search from "./Search";
 
 // Libraries
-import { useState } from "react";
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 
 // Links
 import { navlinks } from "../../constant";
@@ -18,14 +17,14 @@ import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
-  const location = useLocation();
+  const dropdownRef = useRef(null);
+
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const location = useLocation();
 
   const logout = (e) => {
-    // Implement your logout logic here
     e.preventDefault();
     setIsLoggedIn(false);
-    console.log(isLoggedIn);
     localStorage.setItem("isLoggedIn", JSON.stringify(false));
   };
 
@@ -84,11 +83,23 @@ const Navbar = () => {
           )
         )}
       </ul>
-      <div className="flex items-center gap-4 h-auto border-l-[1px] border-l-gray-300 pt-6 md:pb-6 pb-4 md:px-8 px-4">
+      <div className="flex items-center gap-4 h-full border-l-[1px] border-l-gray-300 py-8 md:px-8 px-4">
         <Menu />
-        <NavLink className="link nav-link" onClick={(e) => logout(e)}>
-          <CiLogout className="icon" />
-          <span>Logout</span>
+        <NavLink
+          className="link nav-link lg:flex items-center gap-2 hidden"
+          onClick={(e) => logout(e)}
+        >
+          {isLoggedIn ? (
+            <>
+              <CiLogout className="w-5 h-5" />
+              <p>Logout</p>
+            </>
+          ) : (
+            <>
+              <CiLogout className="w-5 h-5 rotate-180" />
+              <p>Login</p>
+            </>
+          )}
         </NavLink>
       </div>
     </div>

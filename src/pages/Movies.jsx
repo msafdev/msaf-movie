@@ -1,16 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { RxDoubleArrowRight } from "react-icons/rx";
 
 import Card from "../components/Common/Card";
 import Search from "../components/Navbar/Search";
 
 import { fetchAllAPI, searchMoviesAPI } from "../utils/API";
+import { AuthContext } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
 
 export default function Movies() {
   const [movieData, setMovieData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn]);
 
   const fetchData = async (searchQuery) => {
     try {

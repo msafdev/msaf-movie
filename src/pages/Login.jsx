@@ -2,9 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../Login.css"; // Buat file CSS terpisah untuk tata letak khusus login
-
-// ... (kode lainnya)
+import "../Login.css"; 
 
 export default function Login() {
   const { setIsLoggedIn, isLoggedIn } = useContext(AuthContext);
