@@ -8,7 +8,9 @@ export default function Card({ results, sizingClass, badge }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const cardStyle = {
-    backgroundImage: `url(https://image.tmdb.org/t/p/original${results.backdrop_path}`,
+    backgroundImage: `url(https://image.tmdb.org/t/p/original${
+      results.backdrop_path || results.poster_path
+    })`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -24,7 +26,7 @@ export default function Card({ results, sizingClass, badge }) {
 
   return (
     <div
-      className={`${sizingClass} rounded-[32px] flex flex-col justify-between p-6 lg:p-4 relative transition-all duration-500 ease-in-out`}
+      className={`${sizingClass} cursor-pointer z-20 rounded-[32px] flex flex-col justify-between p-6 lg:p-4 relative transition-all duration-500 ease-in-out`}
       style={cardStyle}
     >
       <div

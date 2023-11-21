@@ -34,11 +34,14 @@ const Navbar = () => {
   }
 
   return (
-    <div className="w-full pt-6 md:pb-6 pb-4 md:px-[6%] px-6 flex items-center justify-between">
-      <Link to="/" className="font-bold text-4xl lg:mr-[64px]">
-        .Movie
+    <div className="w-full flex items-center justify-between border-b-[1px] h-fit border-b-gray-300">
+      <Link
+        to="/"
+        className="font-bold text-4xl lg:mr-[64px] pt-6 md:pb-6 pb-4 md:px-8 px-4 lg:border-r-[1px] border-r-gray-300"
+      >
+        <span className="leading-none text-4xl text-yellow-400">.</span>Movie
       </Link>
-      <ul className="hidden lg:flex md:gap-10 gap-5">
+      <ul className="hidden lg:flex md:gap-10 gap-5 h-full items-center lg:mr-auto z-30">
         {navlinks.map((link, index) =>
           Array.isArray(link.path) ? (
             <li
@@ -55,7 +58,8 @@ const Navbar = () => {
                 } transition-all duration-200 ease-in-out`}
               />
               <div
-                className={`absolute min-w-[200px] -translate-x-[30px] px-2 py-4 top-0 translate-y-10 bg-[#010b13] border-2 border-gray-200 ${
+                ref={dropdownRef}
+                className={`absolute min-w-[200px] -translate-x-[30px] px-2 py-4 top-0 translate-y-10 bg-[#010b13] rounded-xl shadow-sm ${
                   show ? "block" : "hidden"
                 }`}
               >
@@ -80,7 +84,7 @@ const Navbar = () => {
           )
         )}
       </ul>
-      <div className="flex items-center lg:ml-auto gap-4">
+      <div className="flex items-center gap-4 h-auto border-l-[1px] border-l-gray-300 pt-6 md:pb-6 pb-4 md:px-8 px-4">
         <Menu />
         <NavLink className="link nav-link" onClick={(e) => logout(e)}>
           <CiLogout className="icon" />
