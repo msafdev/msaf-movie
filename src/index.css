@@ -40,3 +40,12 @@
 body {
   scrollbar-width: none; /* Hide the scrollbar */
 }
+
+.background-img {
+  background-image: url("./assets/bg.svg");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  
+  z-index: -10;
+}

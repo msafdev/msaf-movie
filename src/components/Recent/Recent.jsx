@@ -47,21 +47,25 @@ export default function Recent() {
   return (
     <div className="h-full w-full flex flex-col">
       <div className="flex justify-between items-center mb-4 relative gap-4">
-        <p className="flex items-center font-semibold h-[40px] w-full text-lg z-10 bg-gray-100 border-gray-200 border-2 rounded-full px-4 cursor-default"><code>#</code>Recent</p>
+        <p className="flex items-center font-semibold h-[40px] w-full text-lg z-10 bg-gray-100 border-gray-200 border-2 rounded-full px-4 cursor-default">
+          Recent
+        </p>
         <div className="flex gap-0 z-10 h-[40px] items-center cursor-pointer hover:gap-2 transition-all duration-300 px-4 ease-in-out group bg-gray-100 border-gray-200 border-2 rounded-full">
-          <p className="text-md font-semibold items-center">
-            More
-          </p>
+          <p className="text-md font-semibold items-center">More</p>
           <FiArrowRight className="group-hover:w-[16px] w-0 text-lg transition-all duration-300 ease-in-out" />
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
         {loading ? (
-          <div className="flex justify-center items-center">
-            <p className="text-[#fdfeff] text-2xl">Loading...</p>
-          </div>
+          <>
+            <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
+            <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
+            <div className="flex justify-center items-center w-full h-full bg-gray-300 rounded-[32px]" />
+          </>
         ) : (
-          movieData?.map((movie) => <Card key={movie.id} results={movie} />)
+          movieData?.map((movie) => (
+            <Card key={movie.id} results={movie} sizingClass="w-full h-full" />
+          ))
         )}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Badge from "./Badge";
 import Vote from "./Vote";
 
-export default function Card({ results, isLoading }) {
+export default function Card({ results, sizingClass, badge }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const cardStyle = {
@@ -15,16 +15,16 @@ export default function Card({ results, isLoading }) {
   };
 
   const overlayStyle = {
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
   };
 
   const overlayHoverStyle = {
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
   };
 
   return (
     <div
-      className="h-full min-h-[200px] w-[100%] rounded-[32px] flex flex-col justify-between p-6 lg:p-4 relative transition-all duration-500 ease-in-out"
+      className={`${sizingClass} rounded-[32px] flex flex-col justify-between p-6 lg:p-4 relative transition-all duration-500 ease-in-out`}
       style={cardStyle}
     >
       <div
@@ -33,16 +33,22 @@ export default function Card({ results, isLoading }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       />
-      
+
       <Vote className="z-20" vote={results.vote_average} />
       <div className="flex flex-col z-20 relative">
         <div className="flex z-20 gap-2 flex-wrap py-2">
-          {results.genre_ids?.map((genreId) => (
-            <Badge key={genreId} genreID={genreId} type={"movie"} size={"text-xs"}/>
-          ))}
+          {badge &&
+            results.genre_ids?.map((genreId) => (
+              <Badge
+                key={genreId}
+                genreID={genreId}
+                type={"movie"}
+                size={"text-xs"}
+              />
+            ))}
         </div>
-        <h1 className="z-20 text-[#fdfeff] font-semibold text-md">
-          {results.title}
+        <h1 className="z-20 text-[#fdfeff] font-semibold text-md line-clamp-2">
+          {results.title || results.name}
         </h1>
       </div>
     </div>
