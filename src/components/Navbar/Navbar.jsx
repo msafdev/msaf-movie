@@ -1,9 +1,13 @@
+import { NavLink } from "react-router-dom";
+import { CiLogout } from "react-icons/ci";
+import { AuthContext } from "../../context/Auth";
 // Components
 import Menu from "./Menu";
 import Search from "./Search";
 
 // Libraries
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+import { useEffect, useContext } from "react";
 
 // Links
 import { navlinks } from "../../constant";
@@ -12,31 +16,25 @@ import { navlinks } from "../../constant";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 
-export default function Navbar() {
+const Navbar = () => {
   const [show, setShow] = useState(false);
   const location = useLocation();
-  const dropdownRef = useRef(null);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShow(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  const logout = (e) => {
+    // Implement your logout logic here
+    e.preventDefault();
+    setIsLoggedIn(false);
+    console.log(isLoggedIn);
+    localStorage.setItem("isLoggedIn", JSON.stringify(false));
+  };
 
   if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
 
   return (
-    <div className="w-full pt-6 md:pb-6 pb-4 md:px-8 px-4 flex items-center justify-between border-b-[1px] border-b-gray-300">
+    <div className="w-full pt-6 md:pb-6 pb-4 md:px-[6%] px-6 flex items-center justify-between">
       <Link to="/" className="font-bold text-4xl lg:mr-[64px]">
         .Movie
       </Link>
@@ -57,7 +55,6 @@ export default function Navbar() {
                 } transition-all duration-200 ease-in-out`}
               />
               <div
-                ref={dropdownRef}
                 className={`absolute min-w-[200px] -translate-x-[30px] px-2 py-4 top-0 translate-y-10 bg-[#010b13] border-2 border-gray-200 ${
                   show ? "block" : "hidden"
                 }`}
@@ -85,13 +82,13 @@ export default function Navbar() {
       </ul>
       <div className="flex items-center lg:ml-auto gap-4">
         <Menu />
-        <Link to="/login" className="hidden lg:block group">
-          <button className="text-[#010b13] py-2 rounded-full font-semibold">
-            Sign In
-          </button>
-          <div className="w-0 h-[2px] bg-[#010b13] group-hover:w-full transition-all duration-300 ease-in-out" />
-        </Link>
+        <NavLink className="link nav-link" onClick={(e) => logout(e)}>
+          <CiLogout className="icon" />
+          <span>Logout</span>
+        </NavLink>
       </div>
     </div>
   );
-}
+};
+
+export default Navbar;
