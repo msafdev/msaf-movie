@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-// Components
+import { Link } from "react-router-dom"; // Import the Link component
 import Badge from "./Badge";
 import Vote from "./Vote";
 
@@ -25,7 +24,8 @@ export default function Card({ results, sizingClass, badge }) {
   };
 
   return (
-    <div
+    <Link
+      to={`/detail/${results.id}`}
       className={`${sizingClass} cursor-pointer z-20 rounded-[32px] flex flex-col justify-between p-6 lg:p-4 relative transition-all duration-500 ease-in-out`}
       style={cardStyle}
     >
@@ -35,7 +35,6 @@ export default function Card({ results, sizingClass, badge }) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       />
-
       <Vote className="z-20" vote={results.vote_average} />
       <div className="flex flex-col z-20 relative">
         <div className="flex z-20 gap-2 flex-wrap py-2">
@@ -53,6 +52,6 @@ export default function Card({ results, sizingClass, badge }) {
           {results.title || results.name}
         </h1>
       </div>
-    </div>
+    </Link>
   );
 }

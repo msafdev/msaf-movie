@@ -12,6 +12,7 @@ import Series from "./pages/Series";
 import Results from "./pages/Results";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Detail from "./pages/Details";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/search" element={<Results />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/detail/:id" element={<Detail />}></Route>
         </Routes>
       </div>
       <Footer />
