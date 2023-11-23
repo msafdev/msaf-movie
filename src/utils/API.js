@@ -25,13 +25,72 @@ export const fetchAllAPI = async (endpoint) => {
 
 export const searchMoviesAPI = async (searchQuery) => {
   try {
-    const response = await fetch(`${API_BASE_URL}search/movie?searchQuery=${searchQuery}&include_adult=false&language=en-US&page=1`);
+    const response = await fetch(
+      `${API_BASE_URL}/search/movie?searchQuery=${searchQuery}&include_adult=false&language=en-US&page=1`,
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${TMDB_TOKEN}`,
+        },
+      }
+    );
     const data = await response.json();
 
     if (response.ok) {
       return data.results;
     } else {
       throw new Error(data.status_message || "Failed to fetch data");
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    throw error;
+  }
+};
+
+export const fetchDetail = async (type, id) => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/${type}/${id}?language=en-US`,
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${TMDB_TOKEN}`,
+        },
+      }
+    );
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.status_message || "Failed to fetch data");
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+    throw error;
+  }
+};
+
+export const fetchCredit = async (type, id) => {
+  try {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${TMDB_TOKEN}`,
+        },
+      }
+    );
+    const data = await response.json();
+
+    if (response.ok) {
+      return data;
+    } else {
+      https: throw new Error(data.status_message || "Failed to fetch data");
     }
   } catch (error) {
     console.error("Error fetching data:", error.message);

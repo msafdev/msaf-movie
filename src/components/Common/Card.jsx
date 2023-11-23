@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 // Components
 import Badge from "./Badge";
@@ -25,7 +26,13 @@ export default function Card({ results, sizingClass, badge }) {
   };
 
   return (
-    <div
+    <Link
+      to={{
+        pathname: results.first_air_date
+          ? `/detail/${results.id}`
+          : `/detail/${results.id}`,
+      }}
+      state={{ type: results.first_air_date ? "tv" : "movie" }}
       className={`${sizingClass} cursor-pointer z-20 rounded-[32px] flex flex-col justify-between p-6 lg:p-4 relative transition-all duration-500 ease-in-out`}
       style={cardStyle}
     >
@@ -53,6 +60,6 @@ export default function Card({ results, sizingClass, badge }) {
           {results.title || results.name}
         </h1>
       </div>
-    </div>
+    </Link>
   );
 }

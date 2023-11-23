@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Components
 import Badge from "../Common/Badge";
-import MoreButton from "../Common/MoreButton";
 import Vote from "../Common/Vote";
 
 // Icons
 import { IoMdArrowDroprightCircle } from "react-icons/io";
-
-// https://api.themoviedb.org/3/find/tt9362722?external_source=imdb_id SPIDERMANs
+import { BiCast } from "react-icons/bi";
 
 export default function Series() {
   const [movieData, setMovieData] = useState({});
@@ -65,7 +64,7 @@ export default function Series() {
   return (
     <div
       style={thumbnailStyle}
-      className="cursor-pointer thumb w-full h-full min-h-[300px] rounded-[32px] flex flex-col md:px-10 md:py-8 px-8 py-6 justify-between relative transition-all duration-500 ease-in-out"
+      className="thumb w-full h-full min-h-[300px] rounded-[32px] flex flex-col md:px-10 md:py-8 px-8 py-6 justify-between relative transition-all duration-500 ease-in-out"
     >
       <div
         className="absolute inset-0 rounded-[32px] z-10 transition-all duration-500 ease-in-out"
@@ -117,7 +116,14 @@ export default function Series() {
           {movieData.name}
         </h1>
         <div className="flex items-center md:justify-between mt-4 gap-6">
-          <MoreButton />
+          <Link
+            to={`/detail/${movieData.id}`}
+            state={{ type: "movie" }}
+            className="w-fit px-4 py-3 bg-[#fdfeff] border-0 rounded-full flex items-center gap-3 text-[#010b13] cursor-pointer hover:bg-gray-100 hover:scale-105 duration-200 transition-all ease-in-out"
+          >
+            <BiCast className="w-5 h-5" />
+            <p className="text-sm md:text-base font-medium">See More</p>
+          </Link>
           <Vote vote={movieData.vote_average} />
         </div>
       </div>

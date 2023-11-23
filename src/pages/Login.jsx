@@ -2,7 +2,9 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../Login.css"; 
+import "../Login.css";
+
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function Login() {
   const { setIsLoggedIn, isLoggedIn } = useContext(AuthContext);
@@ -16,7 +18,7 @@ export default function Login() {
     if (username === "admin" && password === "admin") {
       setIsLoggedIn(true);
       localStorage.setItem("isLoggedIn", JSON.stringify(true));
-      navigate("/"); // Mengarahkan ke halaman home setelah login berhasil
+      navigate("/");
     } else {
       setCorrectAuth(false);
       setIsLoggedIn(false);
@@ -36,6 +38,15 @@ export default function Login() {
               {!correctAuth && (
                 <p className="text-red-500">Email dan password salah</p>
               )}
+              {/* <GoogleLoginButton /> */}
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
               <form onSubmit={handleSubmit}>
                 <h3 className="mb-5 font-bold text-center text-2xl">LOG IN</h3>
                 <div className="mb-3">
