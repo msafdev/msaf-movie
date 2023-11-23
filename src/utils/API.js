@@ -25,7 +25,19 @@ export const fetchAllAPI = async (endpoint) => {
 
 export const searchMoviesAPI = async (searchQuery) => {
   try {
-    const response = await fetch(`${API_BASE_URL}search/movie?searchQuery=${searchQuery}&include_adult=false&language=en-US&page=1`);
+    const encodedQuery = encodeURIComponent(searchQuery);
+
+    const response = await fetch(
+      `${API_BASE_URL}/search/movie?query=${encodedQuery}&include_adult=false&language=en-US&page=1`,
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${TMDB_TOKEN}`,
+        },
+      }
+    );
+
     const data = await response.json();
 
     if (response.ok) {

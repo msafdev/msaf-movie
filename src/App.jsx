@@ -12,7 +12,8 @@ import Series from "./pages/Series";
 import Results from "./pages/Results";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Detail from "./pages/Details";
+import Detail from "./pages/Detail";
+import TopRated from "./pages/TopRated";
 
 function App() {
   return (
@@ -23,10 +24,11 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/series" element={<Series />} />
+          <Route path="/toprated" element={<TopRated />} />
           <Route path="/search" element={<Results />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/detail/:id" element={<Detail />}></Route>
+          <Route path="/detail/:id" element={<Detail />} />
         </Routes>
       </div>
       <Footer />

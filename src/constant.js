@@ -7,6 +7,9 @@ const navlinks = [
     name: "Series",
     path: "/series",
   },
+  { 
+    name: "Top Rated", 
+    path: "/toprated" },
   {
     name: "Categories",
     path: [

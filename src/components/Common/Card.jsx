@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Import the Link component
 import Badge from "./Badge";
 import Vote from "./Vote";
+import Detail from "../../pages/Detail"; // Import the Detail component
 
 export default function Card({ results, sizingClass, badge }) {
   const [isHovered, setIsHovered] = useState(false);

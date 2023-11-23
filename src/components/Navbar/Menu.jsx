@@ -1,13 +1,33 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 
 // CSS
 import "./menu.css";
 
+const API_BASE_URL = "https://api.themoviedb.org/3";
+
+const fetchMoviesByCategory = async (category) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/${category}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+};
+
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleNavClick = (path) => {
+    navigate(path);
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -55,6 +75,20 @@ export default function Menu() {
             Welcome to <span className="text-lg font-semibold">.Movie</span>
           </p>
           <div className="w-full h-[2px] border-b-[1px] border-b-gray-400 my-3" />
+          <div className="mt-2">
+            <p
+              className="text-[#fdfeff] text-center my-2 hover:text-gray-300 transition-all duration-200 ease-in-out cursor-pointer"
+              onClick={() => handleNavClick("/category/action")}
+            >
+              Action
+            </p>
+            <p
+              className="text-[#fdfeff] text-center my-2 hover:text-gray-300 transition-all duration-200 ease-in-out cursor-pointer"
+              onClick={() => handleNavClick("/category/comedy")}
+            >
+              Comedy
+            </p>
+          </div>
         </div>
       </div>
     </>
