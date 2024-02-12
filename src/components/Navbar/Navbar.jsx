@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/Auth";
 import Menu from "./Menu";
 
 // Libraries
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useContext, useRef } from "react";
 
 // Links
 import { navlinks } from "../../constant";
@@ -58,7 +58,7 @@ const Navbar = () => {
               />
               <div
                 ref={dropdownRef}
-                className={`absolute min-w-[200px] -translate-x-[30px] px-2 py-4 top-0 translate-y-10 bg-[#010b13] rounded-xl shadow-sm ${
+                className={`absolute min-w-[200px] px-2 py-4 top-0 right-0 translate-x-1/4 translate-y-10 bg-[#010b13] rounded-xl shadow-sm ${
                   show ? "block" : "hidden"
                 }`}
               >
@@ -83,24 +83,8 @@ const Navbar = () => {
           )
         )}
       </ul>
-      <div className="flex items-center gap-4 h-full border-l-[1px] border-l-gray-300 py-8 md:px-8 px-4">
+      <div className="flex items-center gap-4 h-full py-8 md:px-8 px-4">
         <Menu />
-        <NavLink
-          className="link nav-link lg:flex items-center gap-2 hidden"
-          onClick={(e) => logout(e)}
-        >
-          {isLoggedIn ? (
-            <>
-              <CiLogout className="w-5 h-5" />
-              <p>Logout</p>
-            </>
-          ) : (
-            <>
-              <CiLogout className="w-5 h-5 rotate-180" />
-              <p>Login</p>
-            </>
-          )}
-        </NavLink>
       </div>
     </div>
   );

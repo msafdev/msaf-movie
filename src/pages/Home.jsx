@@ -15,13 +15,13 @@ export default function Home() {
       navigate("/login");
     }
   }, [isLoggedIn]);
-  
+
   return (
     <div className="background-img w-full h-full flex-1 flex flex-col md:px-8 px-4">
       <div className="h-full w-full flex lg:flex-row flex-col flex-1 lg:gap-6 gap-4 md:pb-8 pb-4">
         <div className="flex flex-col lg:w-1/2 w-full gap-4">
           <div className="flex flex-col lg:h-full mt-auto h-fit justify-end">
-            <h1 className="lg:text-6xl text-4xl py-4 lg:py-0 text-center lg:text-right">
+            <h1 className="lg:text-6xl text-4xl pt-6 pb-0 lg:py-0 lg:text-right text-center">
               Discover the watch of your{" "}
               <span className="font-semibold">lifetime</span>
             </h1>
